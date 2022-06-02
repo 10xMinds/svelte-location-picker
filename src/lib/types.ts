@@ -1,14 +1,14 @@
 import type * as Leaflet from 'leaflet';
-import type { LatLngTuple, LeafletMouseEvent, Map as MapType } from 'leaflet';
 
 export type ButtonClickEvent = Event & { currentTarget: EventTarget & HTMLButtonElement };
 
 export interface MapEvent {
 	leaflet: typeof Leaflet;
-	map: MapType;
+	map: Leaflet.Map;
 }
 
 export interface PickLocationEvent {
-	event: LeafletMouseEvent;
-	picked: LatLngTuple;
+	event: Leaflet.LeafletMouseEvent;
+	marker: Leaflet.Marker;
+	picked: Leaflet.LatLngTuple;
 }
