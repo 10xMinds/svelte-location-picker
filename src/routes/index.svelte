@@ -90,9 +90,4 @@
 	.has-dialog :global(.lp-dialog-buttons) {
 		padding: 0.5rem;
 	}
-
-	:global(dialog) {
-		position: fixed;
-		top: 5vh;
-	}
 </style>
