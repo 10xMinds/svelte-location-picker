@@ -8,10 +8,7 @@
 
 	let picked_marker: Marker;
 
-	const dispatch = createEventDispatcher<{
-		event: LeafletMouseEvent;
-		pick: PickLocationEvent;
-	}>();
+	const dispatch = createEventDispatcher<{ pick: PickLocationEvent }>();
 
 	function init_map(event: CustomEvent<MapEvent>) {
 		const { detail } = event;
