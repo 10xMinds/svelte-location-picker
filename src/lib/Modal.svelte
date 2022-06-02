@@ -47,7 +47,9 @@
 	on:click|capture={handleClickBg}
 >
 	<div class="lp-modal-content">
+		<slot name="header" />
 		<Popup {...$$restProps} {isOpen} {picked} on:cancel={handleCancel} on:select={handleSelect} />
+		<slot name="footer" />
 	</div>
 </div>
 
