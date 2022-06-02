@@ -1,81 +1,54 @@
 <script lang="ts">
-	import type * as Leaflet from 'leaflet';
-	import type { MapEvent, PickLocationEvent } from './types';
+	import type { LatLngTuple } from 'leaflet';
 	import { createEventDispatcher } from 'svelte';
-	import Picker from './Picker.svelte';
+	import Popup from './Popup.svelte';
 
-	export let cancelText = 'Cancel';
-	export let selectText = 'Select';
-	export let picked: Leaflet.LatLngTuple | null = null;
+	export let picked: LatLngTuple | null = null;
 
-	const dispatch = createEventDispatcher<{ select: { picked: Leaflet.LatLngTuple } }>();
+	const dispatch = createEventDispatcher<{
+		cancel: { picked: LatLngTuple | null };
+		select: { picked: LatLngTuple };
+	}>();
 	let dialog: HTMLDialogElement;
-	let map: Leaflet.Map;
+	let isOpen = false;
 
-	$: selectedString = picked ? picked.join(',') : '';
-	$: canSelect = selectedString !== '';
-
-	function close() {
-		dialog.close(selectedString);
+	function hide() {
+		dialog.close();
+		isOpen = false;
 	}
 
-	function open() {
+	function show() {
 		dialog.show();
-		map.invalidateSize();
+		isOpen = true;
 	}
 
-	function handleMapReady(event: CustomEvent<MapEvent>) {
-		map = event.detail.map;
+	function handleCancel(e: CustomEvent<{ picked: typeof picked }>) {
+		dispatch('cancel', e.detail);
+		hide();
 	}
 
-	function handlePick(e: CustomEvent<PickLocationEvent>) {
+	function handleSelect(e: CustomEvent<{ picked: LatLngTuple }>) {
 		({ picked } = e.detail);
-	}
-
-	function handleSelect() {
-		if (picked) {
-			dispatch('select', { picked });
-			close();
-		}
+		dispatch('select', e.detail);
+		hide();
 	}
 </script>
 
 <dialog class="lp-dialog" bind:this={dialog} on:cancel on:close>
 	<slot name="header" />
-	<Picker {picked} {...$$restProps} on:pick={handlePick} on:ready={handleMapReady} />
-	<div class="lp-dialog-buttons">
-		<button
-			class="lp-dialog-button-select"
-			disabled={!canSelect}
-			type="button"
-			value={selectedString}
-			on:click|preventDefault={handleSelect}
-		>
-			{selectText}
-		</button>
-		<button class="lp-dialog-button-cancel" type="button" on:click|preventDefault={close}>
-			{cancelText}
-		</button>
-	</div>
+	<Popup {...$$restProps} {picked} {isOpen} on:cancel={handleCancel} on:select={handleSelect} />
+	<slot name="footer" />
 </dialog>
 
-<slot name="trigger" {close} {open} />
+<slot name="trigger" {hide} {show} />
 <slot name="result" selected={picked} />
 
 <style>
 	dialog {
-		z-index: 99999;
-		padding: unset;
-		width: 96vw;
-		height: 90vh;
-	}
+		--lp-map-width: 100%;
 
-	dialog[open] {
-		display: flex;
-		flex-direction: column;
-	}
-
-	dialog :global(.lp-map) {
-		flex: 1;
+		z-index: var(--lp-dialog-z-index, 99999);
+		padding: var(--lp-dialog-padding, unset);
+		width: var(--lp-dialog-width, 96vw);
 	}
 </style>
