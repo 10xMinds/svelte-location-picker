@@ -1,9 +1,23 @@
 <script lang="ts">
 	import Dialog from '$lib/Dialog.svelte';
 	import Picker from '$lib/Picker.svelte';
+	import type { LatLngTuple } from 'leaflet';
 
 	let example_1 = '';
 	let example_2 = '';
+	let selectedFromDialog: LatLngTuple | null;
+
+	$: {
+		if (example_2 !== '') {
+			const example_2_arr = example_2
+				.split(',')
+				.map(Number)
+				.filter((i) => !isNaN(i));
+			selectedFromDialog = example_2_arr.length === 2 ? [example_2_arr[0], example_2_arr[1]] : null;
+		} else {
+			selectedFromDialog = null;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -16,16 +30,16 @@
 <div class="simple">
 	<Picker on:pick={(e) => (example_1 = e.detail.picked.join(', '))} />
 	<p>
-		<output>{example_1 || '...'}</output>
+		<label>
+			Picked Location:
+			<input type="text" bind:value={example_1} />
+		</label>
 	</p>
 </div>
 
 <h2>Location Picker with &lt;dialog&gt;</h2>
 <div class="has-dialog">
-	<Dialog
-		picked={example_2 ? example_2.split(',').map(Number) : null}
-		on:select={(e) => (example_2 = e.detail.picked.join(','))}
-	>
+	<Dialog picked={selectedFromDialog} on:select={(e) => (example_2 = e.detail.picked.join(','))}>
 		<input slot="result" bind:value={example_2} />
 		<button slot="trigger" let:open on:click|preventDefault={open}>Select Location</button>
 	</Dialog>
