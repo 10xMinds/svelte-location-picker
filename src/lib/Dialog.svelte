@@ -47,8 +47,12 @@
 	dialog {
 		--lp-map-width: 100%;
 
+		position: var(--lp-dialog-position, fixed);
 		z-index: var(--lp-dialog-z-index, 99999);
+		left: var(--lp-dialog-left, 50%);
+		top: var(--lp-dialog-top, 50%);
+		transform: var(--lp-dialog-transform, translate(-50%, -50%));
 		padding: var(--lp-dialog-padding, unset);
-		width: var(--lp-dialog-width, 96vw);
+		width: var(--lp-dialog-width, 80%);
 	}
 </style>
