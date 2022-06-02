@@ -58,13 +58,14 @@
 
 <style>
 	.lp-modal {
+		--lp-map-width: 100%;
+
 		position: fixed;
 		top: 0;
 		left: 0;
 		z-index: var(--lp-modal-z-index, 99999);
 		width: 100%;
 		height: 100%;
-		overflow: auto;
 		background-color: var(--lp-modal-background-color, rgba(0, 0, 0, 0.75));
 	}
 
@@ -74,8 +75,6 @@
 	}
 
 	.lp-modal-content {
-		--lp-map-width: 100%;
-
 		width: var(--lp-modal-content-width, 80%);
 		background-color: var(--lp-modal-content-background-color, #fefefe);
 	}
