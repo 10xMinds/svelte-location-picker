@@ -1,21 +1,25 @@
 <script lang="ts">
+	import type { LatLngTuple } from 'leaflet';
+	import { toLatLng } from '$lib/utils';
 	import Dialog from '$lib/Dialog.svelte';
 	import Picker from '$lib/Picker.svelte';
-	import type { LatLngTuple } from 'leaflet';
 
-	let example_1 = '';
-	let example_2 = '';
-	let selectedFromDialog: LatLngTuple | null;
+	let picked_1: LatLngTuple | null;
+	let picked_2: LatLngTuple | null;
+	let result_1 = '';
+	let result_2 = '';
 
 	$: {
-		if (example_2 !== '') {
-			const example_2_arr = example_2
-				.split(',')
-				.map(Number)
-				.filter((i) => !isNaN(i));
-			selectedFromDialog = example_2_arr.length === 2 ? [example_2_arr[0], example_2_arr[1]] : null;
-		} else {
-			selectedFromDialog = null;
+		try {
+			picked_1 = toLatLng(result_1);
+		} catch (e) {
+			picked_1 = null;
+		}
+
+		try {
+			picked_2 = toLatLng(result_2);
+		} catch (e) {
+			picked_2 = null;
 		}
 	}
 </script>
@@ -28,19 +32,17 @@
 
 <h2>Simple Location Picker</h2>
 <div class="simple">
-	<Picker on:pick={(e) => (example_1 = e.detail.picked.join(', '))} />
-	<p>
-		<label>
-			Picked Location:
-			<input type="text" bind:value={example_1} />
-		</label>
-	</p>
+	<Picker picked={picked_1} on:pick={(e) => (result_1 = e.detail.picked.join(', '))} />
+	<label class="wrapper">
+		Picked Location:
+		<input type="text" bind:value={result_1} />
+	</label>
 </div>
 
 <h2>Location Picker with &lt;dialog&gt;</h2>
-<div class="has-dialog">
-	<Dialog picked={selectedFromDialog} on:select={(e) => (example_2 = e.detail.picked.join(','))}>
-		<input slot="result" bind:value={example_2} />
+<div class="has-dialog wrapper">
+	<Dialog picked={picked_2} on:select={(e) => (result_2 = e.detail.picked.join(','))}>
+		<input slot="result" bind:value={result_2} />
 		<button slot="trigger" let:open on:click|preventDefault={open}>Select Location</button>
 	</Dialog>
 </div>
@@ -55,16 +57,17 @@
 		min-height: 35rem;
 	}
 
-	output {
+	input {
 		font-variant-numeric: oldstyle-nums;
 		letter-spacing: 0.025rem;
 	}
 
-	.has-dialog {
+	.wrapper {
 		display: flex;
+		margin-block: 1rem;
 	}
 
-	.has-dialog input {
+	.wrapper input {
 		flex: 1;
 		margin-inline-start: 0.25rem;
 	}
