@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { LatLngTuple, Map as MapType } from 'leaflet';
+	import type { LatLngTuple, Map as MapType, TileLayerOptions } from 'leaflet';
 	import type { MapEvent } from './types';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/env';
@@ -10,7 +10,7 @@
 	export let center: LatLngTuple = [-8.426466422648268, 116.40201458313763];
 	export let zoom = 13;
 	export let tileLayerUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	export let tileLayerOptions = {
+	export let tileLayerOptions: TileLayerOptions = {
 		attribution:
 			'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 	};
