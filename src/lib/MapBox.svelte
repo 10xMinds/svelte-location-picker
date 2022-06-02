@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { LatLngTuple } from 'leaflet';
+	import type { LatLngTuple, Map as MapType } from 'leaflet';
 	import type { MapEvent } from './types';
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 	import { browser } from '$app/env';
 
 	let cls = '';
@@ -16,6 +16,7 @@
 	};
 
 	let mapEl: HTMLDivElement;
+	let mapInstance: MapType;
 	const dispatch = createEventDispatcher<{ ready: MapEvent }>();
 
 	onMount(async () => {
@@ -29,6 +30,13 @@
 		leaflet.tileLayer(tileLayerUrl, tileLayerOptions).addTo(map);
 
 		dispatch('ready', { leaflet, map });
+	});
+
+	onDestroy(() => {
+		if (mapInstance) {
+			mapInstance.off();
+			mapInstance.remove();
+		}
 	});
 </script>
 
