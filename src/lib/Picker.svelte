@@ -1,38 +1,57 @@
 <script lang="ts">
-	import type { LatLngTuple, LeafletMouseEvent, Marker } from 'leaflet';
+	import type * as Leaflet from 'leaflet';
 	import type { MapEvent, PickLocationEvent } from './types';
-	import { createEventDispatcher } from 'svelte';
+	import { beforeUpdate, createEventDispatcher } from 'svelte';
 	import MapBox from './MapBox.svelte';
 
-	export let picked: LatLngTuple | null = null;
+	export let picked: Leaflet.LatLngTuple | null = null;
 
-	let picked_marker: Marker;
+	let leaflet: typeof Leaflet;
+	let marker: Leaflet.Marker;
+	let map: Leaflet.Map;
 
-	const dispatch = createEventDispatcher<{ pick: PickLocationEvent }>();
+	const dispatch = createEventDispatcher<{
+		pick: PickLocationEvent;
+		ready: MapEvent;
+	}>();
 
 	function init_map(event: CustomEvent<MapEvent>) {
 		const { detail } = event;
-		const { leaflet, map } = detail;
+		({ leaflet, map } = detail);
 
 		if (picked) {
-			picked_marker = leaflet.marker(picked).addTo(map);
+			marker = leaflet.marker(picked).addTo(map);
 		}
 
-		map.on('click', (event: LeafletMouseEvent) => {
-			if (picked_marker) {
-				map.removeLayer(picked_marker);
+		map.on('click', (event: Leaflet.LeafletMouseEvent) => {
+			if (marker) {
+				map.removeLayer(marker);
 			}
 
 			const { latlng } = event;
 			picked = [latlng.lat, latlng.lng];
-			picked_marker = leaflet.marker(latlng).addTo(map);
+			picked = [latlng.lat, latlng.lng];
+			marker = leaflet.marker(latlng).addTo(map);
 
-			dispatch('pick', {
-				event,
-				picked
-			});
+			dispatch('pick', { event, marker, picked });
 		});
+
+		dispatch('ready', detail);
 	}
+
+	beforeUpdate(() => {
+		if (!leaflet) {
+			return;
+		}
+
+		if (marker) {
+			map.removeLayer(marker);
+		}
+
+		if (picked) {
+			marker = leaflet.marker(picked).addTo(map);
+		}
+	});
 </script>
 
 <MapBox {...$$restProps} on:ready={init_map} />
