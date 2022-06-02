@@ -1,11 +1,16 @@
 <script lang="ts">
+	import type { LatLngTuple } from 'leaflet';
 	import { createEventDispatcher } from 'svelte';
 	import Popup from './Popup.svelte';
 
+	export let picked: LatLngTuple | null = null;
 	export let closeOnClickBg = true;
 	export let isOpen = false;
 
-	const dispatch = createEventDispatcher();
+	const dispatch = createEventDispatcher<{
+		cancel: { picked: LatLngTuple | null };
+		select: { picked: LatLngTuple };
+	}>();
 	let modalEl: HTMLDivElement;
 
 	function hide() {
@@ -22,8 +27,14 @@
 		}
 	}
 
-	function handleSelectCancel(e: CustomEvent) {
-		dispatch(e.type, e.detail);
+	function handleCancel(e: CustomEvent<{ picked: typeof picked }>) {
+		dispatch('cancel', e.detail);
+		hide();
+	}
+
+	function handleSelect(e: CustomEvent<{ picked: LatLngTuple }>) {
+		({ picked } = e.detail);
+		dispatch('select', e.detail);
 		hide();
 	}
 </script>
@@ -36,17 +47,12 @@
 	on:click|capture={handleClickBg}
 >
 	<div class="lp-modal-content">
-		<Popup
-			{...$$restProps}
-			{isOpen}
-			on:cancel={handleSelectCancel}
-			on:select={handleSelectCancel}
-		/>
+		<Popup {...$$restProps} {isOpen} {picked} on:cancel={handleCancel} on:select={handleSelect} />
 	</div>
 </div>
 
 <slot name="trigger" {hide} {show} />
-<slot name="result" />
+<slot name="result" selected={picked} />
 
 <style>
 	.lp-modal {
