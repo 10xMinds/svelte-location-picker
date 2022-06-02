@@ -41,3 +41,10 @@
 </script>
 
 <div class={`lp-map ${cls}`} bind:this={mapEl} />
+
+<style>
+	.lp-map {
+		height: var(--lp-map-height, 65vh);
+		width: var(--lp-map-width, 100%);
+	}
+</style>
