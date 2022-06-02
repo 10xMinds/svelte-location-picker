@@ -60,7 +60,7 @@
 </dialog>
 
 <slot name="trigger" {open} />
-<slot name="result" {picked} />
+<slot name="result" selected={picked} />
 
 <style>
 	dialog {
