@@ -59,7 +59,7 @@
 	</div>
 </dialog>
 
-<slot name="trigger" {open} />
+<slot name="trigger" {close} {open} />
 <slot name="result" selected={picked} />
 
 <style>
