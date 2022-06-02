@@ -25,11 +25,11 @@
 		}
 
 		const leaflet = await import('leaflet');
-		const map = leaflet.map(mapEl).setView(center, zoom);
+		mapInstance = leaflet.map(mapEl).setView(center, zoom);
 
-		leaflet.tileLayer(tileLayerUrl, tileLayerOptions).addTo(map);
+		leaflet.tileLayer(tileLayerUrl, tileLayerOptions).addTo(mapInstance);
 
-		dispatch('ready', { leaflet, map });
+		dispatch('ready', { leaflet, map: mapInstance });
 	});
 
 	onDestroy(() => {
