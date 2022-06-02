@@ -6,13 +6,14 @@
 
 	export let cancelText = 'Cancel';
 	export let selectText = 'Select';
+	export let picked: Leaflet.LatLngTuple | null = null;
 
 	const dispatch = createEventDispatcher<{ select: { picked: Leaflet.LatLngTuple } }>();
 	let dialog: HTMLDialogElement;
 	let map: Leaflet.Map;
-	let selected: Leaflet.LatLngTuple;
 
-	$: selectedString = selected ? selected.join(',') : '';
+	$: selectedString = picked ? picked.join(',') : '';
+	$: canSelect = selectedString !== '';
 
 	function close() {
 		dialog.close(selectedString);
@@ -28,22 +29,24 @@
 	}
 
 	function handlePick(e: CustomEvent<PickLocationEvent>) {
-		({ picked: selected } = e.detail);
+		({ picked } = e.detail);
 	}
 
 	function handleSelect() {
-		dispatch('select', { picked: selected });
-		close();
+		if (picked) {
+			dispatch('select', { picked });
+			close();
+		}
 	}
 </script>
 
 <dialog class="lp-dialog" bind:this={dialog} on:close>
 	<slot name="header" />
-	<Picker {...$$restProps} on:pick={handlePick} on:ready={handleMapReady} />
+	<Picker {picked} {...$$restProps} on:pick={handlePick} on:ready={handleMapReady} />
 	<div class="lp-dialog-buttons">
 		<button
 			class="lp-dialog-button-select"
-			disabled={!Boolean(selected)}
+			disabled={!canSelect}
 			type="button"
 			value={selectedString}
 			on:click|preventDefault={handleSelect}
