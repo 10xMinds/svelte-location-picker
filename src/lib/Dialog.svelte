@@ -40,7 +40,7 @@
 	}
 </script>
 
-<dialog class="lp-dialog" bind:this={dialog} on:close>
+<dialog class="lp-dialog" bind:this={dialog} on:cancel on:close>
 	<slot name="header" />
 	<Picker {picked} {...$$restProps} on:pick={handlePick} on:ready={handleMapReady} />
 	<div class="lp-dialog-buttons">
