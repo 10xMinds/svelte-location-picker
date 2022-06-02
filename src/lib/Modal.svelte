@@ -27,14 +27,20 @@
 		}
 	}
 
-	function handleCancel(e: CustomEvent<{ picked: typeof picked }>) {
-		dispatch('cancel', e.detail);
+	function handleCancel(e: Event | CustomEvent<{ picked: typeof picked }>) {
+		if (e instanceof CustomEvent) {
+			dispatch('cancel', e.detail);
+		}
+
 		hide();
 	}
 
-	function handleSelect(e: CustomEvent<{ picked: LatLngTuple }>) {
-		({ picked } = e.detail);
-		dispatch('select', e.detail);
+	function handleSelect(e: Event | CustomEvent<{ picked: LatLngTuple }>) {
+		if (e instanceof CustomEvent) {
+			({ picked } = e.detail);
+			dispatch('select', e.detail);
+		}
+
 		hide();
 	}
 </script>
@@ -48,7 +54,9 @@
 >
 	<div class="lp-modal-content">
 		<slot name="header" />
-		<Popup {...$$restProps} {isOpen} {picked} on:cancel={handleCancel} on:select={handleSelect} />
+		<Popup {...$$restProps} {isOpen} {picked} on:cancel={handleCancel} on:select={handleSelect}>
+			<slot name="buttons" slot="buttons" {handleCancel} {handleSelect} {picked} />
+		</Popup>
 		<slot name="footer" />
 	</div>
 </div>
