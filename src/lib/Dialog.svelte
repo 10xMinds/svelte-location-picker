@@ -22,29 +22,21 @@
 		isOpen = true;
 	}
 
-	function handleCancel(e: Event | CustomEvent<{ picked: typeof picked }>) {
-		if (e instanceof CustomEvent) {
-			dispatch('cancel', e.detail);
-		}
-
+	function handleCancel(e: CustomEvent<{ picked: typeof picked }>) {
+		dispatch('cancel', e.detail);
 		hide();
 	}
 
-	function handleSelect(e: Event | CustomEvent<{ picked: LatLngTuple }>) {
-		if (e instanceof CustomEvent) {
-			({ picked } = e.detail);
-			dispatch('select', e.detail);
-		}
-
+	function handleSelect(e: CustomEvent<{ picked: LatLngTuple }>) {
+		({ picked } = e.detail);
+		dispatch('select', e.detail);
 		hide();
 	}
 </script>
 
 <dialog class="lp-dialog" bind:this={dialog} on:cancel on:close>
 	<slot name="header" />
-	<Popup {...$$restProps} {picked} {isOpen} on:cancel={handleCancel} on:select={handleSelect}>
-		<slot name="buttons" slot="buttons" {handleCancel} {handleSelect} {picked} />
-	</Popup>
+	<Popup {...$$restProps} {picked} {isOpen} on:cancel={handleCancel} on:select={handleSelect} />
 	<slot name="footer" />
 </dialog>
 
