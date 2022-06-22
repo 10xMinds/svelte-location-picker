@@ -43,8 +43,8 @@
 
 <h2>Simple Location Picker</h2>
 
-<pre><code>
-&lt;script&gt;
+<pre><code
+		>&lt;script&gt;
 	import &#123;Picker&#125 from 'svelte-location-picker';
 
 	let picked = null;
@@ -68,6 +68,21 @@
 </div>
 
 <h2>Location Picker with &lt;dialog&gt;</h2>
+
+<pre><code
+		>&lt;script&gt;
+	import &#123;Dialog&#125 from 'svelte-location-picker';
+
+	let picked = null;
+	let value = '';
+&lt;/script&gt;
+
+&lt;Dialog &#123;picked&#125; on:select=&#123;(e) =&gt; (result_2 = e.detail.picked.join(','))&#125;&gt;
+	&lt;input slot="result" bind:value /&gt;
+	&lt;button slot="trigger" let:show on:click|preventDefault=&#123;show&#125;&gt;Select Location&lt;/button&gt;
+&lt;/Dialog&gt;
+</code></pre>
+
 <div class="has-dialog wrapper">
 	<Dialog picked={picked_2} on:select={(e) => (result_2 = e.detail.picked.join(','))}>
 		<input slot="result" bind:value={result_2} />
