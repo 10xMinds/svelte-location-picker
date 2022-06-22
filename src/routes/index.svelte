@@ -47,6 +47,8 @@
 		<a href="https://leafletjs.com">Leaflet</a>.
 	</p>
 
+	<pre><code>npm install --save-dev @valiant.id/svelte-location-picker</code></pre>
+
 	<h2>Simple Location Picker</h2>
 
 	<pre><code
@@ -124,11 +126,15 @@
 
 <style>
 	:global(body) {
-		font-family: system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+		font-family: system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu,
+			Cantarell, 'Helvetica Neue', sans-serif;
 	}
 
-	pre, code {
-		font-family: Consolas,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
+	pre,
+	code {
+		font-family: Consolas, Monaco, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
+			'Lucida Sans Typewriter', 'Liberation Mono', 'Nimbus Mono L', 'Courier New', Courier,
+			monospace;
 	}
 
 	main {
@@ -167,7 +173,7 @@
 	}
 
 	pre code {
-		color: #aec4d9
+		color: #aec4d9;
 	}
 
 	.colophon {
