@@ -39,12 +39,18 @@
 	<title>Location Picker</title>
 </svelte:head>
 
-<h1>Location Picker</h1>
+<main>
+	<h1>Location Picker</h1>
 
-<h2>Simple Location Picker</h2>
+	<p>
+		Location Picker component for <a href="https://svelte.dev">Svelte</a> using
+		<a href="https://leafletjs.com">Leaflet</a>.
+	</p>
 
-<pre><code
-		>&lt;script&gt;
+	<h2>Simple Location Picker</h2>
+
+	<pre><code
+			>&lt;script&gt;
 	import &#123;Picker&#125 from 'svelte-location-picker';
 
 	let picked = null;
@@ -59,18 +65,18 @@
 &lt;/label&gt;
 </code></pre>
 
-<div class="simple">
-	<Picker picked={picked_1} on:pick={(e) => (result_1 = e.detail.picked.join(', '))} />
-	<label class="wrapper">
-		Picked Location:
-		<input type="text" bind:value={result_1} />
-	</label>
-</div>
+	<div class="simple">
+		<Picker picked={picked_1} on:pick={(e) => (result_1 = e.detail.picked.join(', '))} />
+		<label class="wrapper">
+			Picked Location:
+			<input type="text" bind:value={result_1} />
+		</label>
+	</div>
 
-<h2>Location Picker with &lt;dialog&gt;</h2>
+	<h2>Location Picker with &lt;dialog&gt;</h2>
 
-<pre><code
-		>&lt;script&gt;
+	<pre><code
+			>&lt;script&gt;
 	import &#123;Dialog&#125 from 'svelte-location-picker';
 
 	let picked = null;
@@ -83,18 +89,18 @@
 &lt;/Dialog&gt;
 </code></pre>
 
-<div class="has-dialog wrapper">
-	<Dialog picked={picked_2} on:select={(e) => (result_2 = e.detail.picked.join(','))}>
-		<input slot="result" bind:value={result_2} />
-		<button slot="trigger" let:show on:click|preventDefault={show}>Select Location</button>
-	</Dialog>
-</div>
+	<div class="has-dialog wrapper">
+		<Dialog picked={picked_2} on:select={(e) => (result_2 = e.detail.picked.join(','))}>
+			<input slot="result" bind:value={result_2} />
+			<button slot="trigger" let:show on:click|preventDefault={show}>Select Location</button>
+		</Dialog>
+	</div>
 
-<h2>Location Picker with modal</h2>
+	<h2>Location Picker with modal</h2>
 
-<pre><code
-		>&lt;script&gt;
-	import &#123;Dialog&#125 from 'svelte-location-picker';
+	<pre><code
+			>&lt;script&gt;
+	import &#123;Modal&#125 from 'svelte-location-picker';
 
 	let picked = null;
 	let value = '';
@@ -106,14 +112,30 @@
 &lt;/Modal&gt;
 </code></pre>
 
-<div class="has-dialog has-modal wrapper">
-	<Modal picked={picked_3} on:select={(e) => (result_3 = e.detail.picked.join(','))}>
-		<input slot="result" bind:value={result_3} />
-		<button slot="trigger" let:show on:click|preventDefault={show}>Select Location</button>
-	</Modal>
-</div>
+	<div class="has-dialog has-modal wrapper">
+		<Modal picked={picked_3} on:select={(e) => (result_3 = e.detail.picked.join(','))}>
+			<input slot="result" bind:value={result_3} />
+			<button slot="trigger" let:show on:click|preventDefault={show}>Select Location</button>
+		</Modal>
+	</div>
+
+	<p class="colophon"><a href="https://valiant.id">💚</a></p>
+</main>
 
 <style>
+	:global(body) {
+		font-family: system-ui,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif;
+	}
+
+	pre, code {
+		font-family: Consolas,Monaco,'Andale Mono WT','Andale Mono','Lucida Console','Lucida Sans Typewriter','Liberation Mono','Nimbus Mono L','Courier New',Courier,monospace;
+	}
+
+	main {
+		max-width: 60rem;
+		margin-inline: auto;
+	}
+
 	div {
 		position: relative;
 		margin-block-end: 2rem;
@@ -136,5 +158,25 @@
 
 	.has-dialog :global(.lp-dialog-buttons) {
 		padding: 0.5rem;
+	}
+
+	pre {
+		background-color: #1c1c1c;
+		padding: 1rem;
+		line-height: 1.6;
+	}
+
+	pre code {
+		color: #aec4d9
+	}
+
+	.colophon {
+		text-align: center;
+		margin-block: 2rem;
+	}
+
+	.colophon a {
+		text-decoration: unset;
+		padding-inline: 0.5rem;
 	}
 </style>
