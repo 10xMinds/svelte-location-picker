@@ -91,6 +91,21 @@
 </div>
 
 <h2>Location Picker with modal</h2>
+
+<pre><code
+		>&lt;script&gt;
+	import &#123;Dialog&#125 from 'svelte-location-picker';
+
+	let picked = null;
+	let value = '';
+&lt;/script&gt;
+
+&lt;Modal &#123;picked&#125; on:select=&#123;(e) =&gt; (result = e.detail.picked.join(','))&#125;&gt;
+	&lt;input slot="result" bind:value /&gt;
+	&lt;button slot="trigger" let:show on:click|preventDefault=&#123;show&#125;&gt;Select Location&lt;/button&gt;
+&lt;/Modal&gt;
+</code></pre>
+
 <div class="has-dialog has-modal wrapper">
 	<Modal picked={picked_3} on:select={(e) => (result_3 = e.detail.picked.join(','))}>
 		<input slot="result" bind:value={result_3} />
