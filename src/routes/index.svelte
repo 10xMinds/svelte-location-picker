@@ -42,6 +42,23 @@
 <h1>Location Picker</h1>
 
 <h2>Simple Location Picker</h2>
+
+<pre><code>
+&lt;script&gt;
+	import &#123;Picker&#125 from 'svelte-location-picker';
+
+	let picked = null;
+	let value = '';
+&lt;/script&gt;
+
+&lt;Picker &#123;picked&#125; on:pick=&#123;(e) =&gt; (value = e.detail.picked.join(', '))&#125; /&gt;
+
+&lt;label class="wrapper"&gt;
+	Picked Location:
+	&lt;input type="text" bind:value /&gt;
+&lt;/label&gt;
+</code></pre>
+
 <div class="simple">
 	<Picker picked={picked_1} on:pick={(e) => (result_1 = e.detail.picked.join(', '))} />
 	<label class="wrapper">
