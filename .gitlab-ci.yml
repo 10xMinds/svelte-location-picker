@@ -2,7 +2,7 @@
 # See https://docs.gitlab.com/ee/ci/yaml/README.html
 
 .with_node:
-    image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/node:18-alpine
+    image: node:18-alpine
     cache:
         key: ${CI_COMMIT_REF_SLUG}
         paths:
@@ -34,7 +34,7 @@ stages:
     - publish
 
 enable_merge:
-    image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:latest
+    image: alpine:latest
     stage: lint
     rules:
         - if: $CI_MERGE_REQUEST_ID
