@@ -79,8 +79,8 @@ build_main:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
 pages:
-    extends: publish
     script: mv build public
+    stage: publish
     artifacts:
         paths:
             - public
