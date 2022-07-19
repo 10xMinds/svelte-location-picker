@@ -76,6 +76,7 @@ publish:
               - '.changeset/**'
     script: |
         pnpm install
+        pnpm changesets-gitlab
         pnpm package
     variables:
         INPUT_PUBLISH: pnpm publish package
