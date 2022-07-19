@@ -1,6 +1,6 @@
 # Location Picker
 
-See [demo and code sample](https://svelte-location-picker.vercel.app/).
+See [demo and code sample](https://kucrut.gitlab.io/svelte-location-picker).
 
 ## TODO
 
