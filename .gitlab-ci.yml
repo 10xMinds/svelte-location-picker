@@ -77,9 +77,8 @@ publish:
     script: |
         pnpm install
         pnpm changesets-gitlab
-        pnpm package
     variables:
-        INPUT_PUBLISH: pnpm publish package
+        INPUT_PUBLISH: pnpm package && pnpm publish package
 
 build_pages:
     extends:
