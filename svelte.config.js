@@ -11,6 +11,9 @@ const config = {
 		adapter: adapter({
 			fallback: 'index.html'
 		}),
+		paths: {
+			base: process.env.VITE_BASE || ''
+		},
 		prerender: {
 			default: false
 		}
