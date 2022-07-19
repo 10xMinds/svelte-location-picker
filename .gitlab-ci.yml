@@ -18,19 +18,16 @@
         - pnpm install
         - pnpm build
 
-.base_publish:
-    extends: .with_node
-    stage: publish
+.base_pages:
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           changes:
               - 'CHANGELOG.md'
-        - if: $CI_COMMIT_TAG
-          when: never
 
 stages:
     - lint
     - build
+    - publish
     - deploy
 
 enable_merge:
@@ -70,24 +67,36 @@ build_merge_request:
               - 'package.json'
               - 'pnpm-lock.yaml'
 
+publish:
+    extends: .with_node
+    stage: publish
+    rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+          changes:
+              - '.changeset/**'
+    script: |
+        pnpm install
+        pnpm package
+    variables:
+        INPUT_PUBLISH: pnpm publish package
+
 build_pages:
-    extends: .base_build
+    extends:
+        - .base_build
+        - .base_pages
     artifacts:
         paths:
             - build
-    rules:
-        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     variables:
         VITE_BASE: /svelte-location-picker
 
 pages:
-    script: mv build public
+    extends: .base_pages
     stage: deploy
+    script: mv build public
     artifacts:
         paths:
             - public
     needs:
         - job: build_pages
           artifacts: true
-    rules:
-        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
