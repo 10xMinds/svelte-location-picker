@@ -36,11 +36,11 @@
 </script>
 
 <svelte:head>
-	<title>Location Picker</title>
+	<title>Svelte Location Picker</title>
 </svelte:head>
 
 <main>
-	<h1>Location Picker</h1>
+	<h1>Svelte Location Picker</h1>
 
 	<p>
 		Location Picker component for <a href="https://svelte.dev">Svelte</a> using

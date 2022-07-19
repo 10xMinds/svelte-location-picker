@@ -1,7 +1,3 @@
 # Location Picker
 
-See [demo and code sample](https://svelte-location-picker.vercel.app/).
-
-## TODO
-
--   Make Popup buttons costumisable. See https://github.com/sveltejs/svelte/issues/6059
+See [demo and code sample](https://kucrut.gitlab.io/svelte-location-picker).
