@@ -16,7 +16,7 @@
     stage: build
     script:
         - pnpm install
-        - VITE_BASE=/svelte-location-picker pnpm build
+        - pnpm build
 
 .base_publish:
     extends: .with_node
@@ -70,13 +70,15 @@ build_merge_request:
               - 'package.json'
               - 'pnpm-lock.yaml'
 
-build_main:
+build_pages:
     extends: .base_build
     artifacts:
         paths:
             - build
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    variables:
+        VITE_BASE: /svelte-location-picker
 
 pages:
     script: mv build public
@@ -85,7 +87,7 @@ pages:
         paths:
             - public
     needs:
-        - job: build_main
+        - job: build_pages
           artifacts: true
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
