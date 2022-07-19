@@ -16,7 +16,7 @@
     stage: build
     script:
         - pnpm install
-        - pnpm build
+        - VITE_BASE=/svelte-location-picker pnpm build
 
 .base_publish:
     extends: .with_node
@@ -31,7 +31,7 @@
 stages:
     - lint
     - build
-    - publish
+    - deploy
 
 enable_merge:
     image: alpine:latest
@@ -80,7 +80,7 @@ build_main:
 
 pages:
     script: mv build public
-    stage: publish
+    stage: deploy
     artifacts:
         paths:
             - public
