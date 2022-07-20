@@ -82,6 +82,9 @@ create_release_mr:
     script: |
         pnpm install
         pnpm changesets-gitlab
+    variables:
+        INPUT_COMMIT: New version
+        INPUT_TITLE: New version
 
 release:
     stage: release
