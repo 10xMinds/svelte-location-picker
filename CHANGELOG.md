@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.0.5
+
+### Patch Changes
+
+- e57eede: Publish flow 9
+
 ## 0.0.4
 
 ### Patch Changes
