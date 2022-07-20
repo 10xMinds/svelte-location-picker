@@ -90,7 +90,7 @@ release:
         paths:
             - build
     variables:
-        VITE_BASE: /svelte-location-picker
+        VITE_BASE: '/${CI_PROJECT_NAME}'
     script: |
         cat << EOF > "$HOME/.npmrc"
             //registry.npmjs.org/:_authToken=$NPM_TOKEN
@@ -98,7 +98,7 @@ release:
         pnpm install
         pnpm build
         pnpm package
-        pnpm publish package --access public
+        pnpm publish package --access public --no-git-checks
 
 pages:
     extends: .base_release
