@@ -6,5 +6,6 @@
 /.svelte-kit
 /build
 /package
+CHANGELOG.md
 node_modules
 pnpm-lock.yaml
