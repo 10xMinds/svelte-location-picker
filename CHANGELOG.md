@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.0.6
+
+### Patch Changes
+
+- 4769075: Add more data to package.json
+
 ## 0.0.5
 
 ### Patch Changes
