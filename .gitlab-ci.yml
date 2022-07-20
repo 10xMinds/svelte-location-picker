@@ -2,13 +2,12 @@
 # See https://docs.gitlab.com/ee/ci/yaml/README.html
 
 .with_node:
-    image: node:18-alpine
+    image: kucrut/pnpm
     cache:
         key: ${CI_COMMIT_REF_SLUG}
         paths:
             - .pnpm-store
     before_script:
-        - npm i --location=global pnpm
         - pnpm config set store-dir .pnpm-store
 
 .base_build:
