@@ -98,7 +98,7 @@ release:
         pnpm install
         pnpm build
         pnpm package
-        pnpm publish package --access public
+        pnpm publish package --access public --no-git-checks
 
 pages:
     extends: .base_release
