@@ -44,7 +44,7 @@ lint:
     script: pnpm install && pnpm lint && pnpm check
     stage: lint
     rules:
-        - if: $CI_MERGE_REQUEST_ID && $CI_COMMIT_BRANCH != $CHANGESET_RELEASE_BRANCH
+        - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
           changes:
               - '**/*.cjs'
               - '**/*.html'
@@ -57,7 +57,7 @@ lint:
 build_merge_request:
     extends: .base_build
     rules:
-        - if: $CI_MERGE_REQUEST_ID && $CI_COMMIT_BRANCH != $CHANGESET_RELEASE_BRANCH
+        - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
           changes:
               - '.gitlab-ci.yml'
               - '**/*.cjs'
