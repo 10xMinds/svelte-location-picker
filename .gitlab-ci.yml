@@ -10,14 +10,8 @@
     before_script:
         - pnpm config set store-dir .pnpm-store
 
-.base_build:
+.base_release:
     extends: .with_node
-    stage: build
-    script:
-        - pnpm install
-        - pnpm build
-
-.base_pages:
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           changes:
@@ -29,7 +23,8 @@ variables:
 stages:
     - lint
     - build
-    - publish
+    - pre-release
+    - release
     - deploy
 
 enable_merge:
@@ -44,7 +39,7 @@ lint:
     script: pnpm install && pnpm lint && pnpm check
     stage: lint
     rules:
-        - if: $CI_MERGE_REQUEST_ID && $CI_COMMIT_BRANCH != $CHANGESET_RELEASE_BRANCH
+        - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
           changes:
               - '**/*.cjs'
               - '**/*.html'
@@ -55,9 +50,13 @@ lint:
               - 'pnpm-lock.yaml'
 
 build_merge_request:
-    extends: .base_build
+    extends: .with_node
+    stage: build
+    script:
+        - pnpm install
+        - pnpm build
     rules:
-        - if: $CI_MERGE_REQUEST_ID && $CI_COMMIT_BRANCH != $CHANGESET_RELEASE_BRANCH
+        - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
           changes:
               - '.gitlab-ci.yml'
               - '**/*.cjs'
@@ -69,9 +68,9 @@ build_merge_request:
               - 'package.json'
               - 'pnpm-lock.yaml'
 
-publish:
+create_release:
     extends: .with_node
-    stage: publish
+    stage: pre-release
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           changes:
@@ -79,26 +78,31 @@ publish:
     script: |
         pnpm install
         pnpm changesets-gitlab
-    variables:
-        INPUT_PUBLISH: pnpm package && pnpm publish package
 
-build_pages:
-    extends:
-        - .base_build
-        - .base_pages
+release:
+    stage: release
+    extends: .base_release
     artifacts:
         paths:
             - build
     variables:
         VITE_BASE: /svelte-location-picker
+    script: |
+        cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+        EOF
+        pnpm install
+        pnpm build
+        pnpm package
+        pnpm publish package --access public
 
 pages:
-    extends: .base_pages
+    extends: .base_release
     stage: deploy
     script: mv build public
     artifacts:
         paths:
             - public
     needs:
-        - job: build_pages
+        - job: release
           artifacts: true
