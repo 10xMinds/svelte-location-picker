@@ -1,7 +1,34 @@
 {
 	"name": "@kucrut/svelte-location-picker",
+	"description": "Simple location picker for Svelte projects.",
 	"version": "0.0.5",
+	"homepage": "https://kucrut.gitlab.io/svelte-location-picker",
+	"license": "MIT",
+	"packageManager": "pnpm@7.5.2",
 	"type": "module",
+	"bugs": {
+		"url": "https://gitlab.com/kucrut/svelte-location-picker/-/issues"
+	},
+	"contributors": [
+		{
+			"name": "Dzikri Aziz",
+			"url": "https://dz.aziz.im"
+		}
+	],
+	"engines": {
+		"pnpm": "^7.0.0"
+	},
+	"keywords": [
+		"form",
+		"geolocation",
+		"leaflet",
+		"map",
+		"svelte"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://gitlab.com/kucrut/svelte-location-picker"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
