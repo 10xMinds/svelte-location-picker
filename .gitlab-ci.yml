@@ -104,5 +104,5 @@ pages:
         paths:
             - public
     needs:
-        - job: build_pages
+        - job: release
           artifacts: true
