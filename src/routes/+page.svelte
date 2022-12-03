@@ -121,7 +121,7 @@
 		</Modal>
 	</div>
 
-	<p class="colophon"><a href="https://valiant.id">💚</a></p>
+	<p class="colophon"><a href="https://dz.aziz.im">💚</a></p>
 </main>
 
 <style>
