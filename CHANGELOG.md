@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.0.8
+
+### Patch Changes
+
+- acfc658: Migrate packaging
+
 ## 0.0.7
 
 ### Patch Changes
