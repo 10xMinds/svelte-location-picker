@@ -39,6 +39,7 @@
 	}
 </script>
 
+<!-- svelte-ignore a11y-click-events-have-key-events TODO -->
 <div
 	class="lp-modal"
 	class:lp-modal--is-open={isOpen}
