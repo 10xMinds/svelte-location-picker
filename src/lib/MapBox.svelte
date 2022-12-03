@@ -2,7 +2,7 @@
 	import type { LatLngTuple, Map as MapType, TileLayerOptions } from 'leaflet';
 	import type { MapEvent } from './types';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 
 	let cls = '';
 	export { cls as class };

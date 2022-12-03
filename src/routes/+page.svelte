@@ -47,7 +47,7 @@
 		<a href="https://leafletjs.com">Leaflet</a>.
 	</p>
 
-	<pre><code>npm install --save-dev @valiant.id/svelte-location-picker</code></pre>
+	<pre><code>npm install --save-dev @kucrut/svelte-location-picker</code></pre>
 
 	<h2>Simple Location Picker</h2>
 
@@ -121,7 +121,7 @@
 		</Modal>
 	</div>
 
-	<p class="colophon"><a href="https://valiant.id">💚</a></p>
+	<p class="colophon"><a href="https://dz.aziz.im">💚</a></p>
 </main>
 
 <style>
