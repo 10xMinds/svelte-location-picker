@@ -5,6 +5,7 @@ specifiers:
   '@playwright/test': ^1.28.1
   '@sveltejs/adapter-static': 1.0.0-next.48
   '@sveltejs/kit': 1.0.0-next.571
+  '@sveltejs/package': 1.0.0-next.6
   '@types/geojson': ^7946.0.10
   '@types/leaflet': ^1.9.0
   '@typescript-eslint/eslint-plugin': ^5.45.0
@@ -30,6 +31,7 @@ devDependencies:
   '@playwright/test': 1.28.1
   '@sveltejs/adapter-static': 1.0.0-next.48
   '@sveltejs/kit': 1.0.0-next.571_svelte@3.53.1+vite@3.2.4
+  '@sveltejs/package': 1.0.0-next.6_7dvewpees4iyn2tkw2qzal77a4
   '@types/geojson': 7946.0.10
   '@types/leaflet': 1.9.0
   '@typescript-eslint/eslint-plugin': 5.45.0_yjegg5cyoezm3fzsmuszzhetym
@@ -514,6 +516,22 @@ packages:
       vite: 3.2.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@sveltejs/package/1.0.0-next.6_7dvewpees4iyn2tkw2qzal77a4:
+    resolution: {integrity: sha512-EwekVYRnD1r0deTt+9OKRvDopdX59FdfMVV+sN/LtIRO8+mEYuuDkj4uurt5yA9o2sMsv9xiAIWT5qKrq0rXuQ==}
+    engines: {node: '>=16.14'}
+    hasBin: true
+    peerDependencies:
+      svelte: ^3.44.0
+    dependencies:
+      chokidar: 3.5.3
+      kleur: 4.1.5
+      sade: 1.8.1
+      svelte: 3.53.1
+      svelte2tsx: 0.5.21_7dvewpees4iyn2tkw2qzal77a4
+    transitivePeerDependencies:
+      - typescript
     dev: true
 
   /@sveltejs/vite-plugin-svelte/1.4.0_svelte@3.53.1+vite@3.2.4:
