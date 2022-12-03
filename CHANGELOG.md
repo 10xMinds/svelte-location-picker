@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.0.7
+
+### Patch Changes
+
+- 75b130a: Update dependencies (20221203)
+
 ## 0.0.6
 
 ### Patch Changes
