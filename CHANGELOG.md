@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.1.0
+
+### Minor Changes
+
+- 4c08058: Improve accessibility on Modal & Dialog components (uses actions from @kucrut/svelte-stuff)
+
 ## 0.0.8
 
 ### Patch Changes
