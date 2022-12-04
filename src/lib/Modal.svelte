@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { LatLngTuple } from 'leaflet';
-	import { click_outside } from '@kucrut/svelte-stuff/actions';
+	import { click_outside, handle_escape } from '@kucrut/svelte-stuff/actions';
 	import { createEventDispatcher } from 'svelte';
 	import Popup from './Popup.svelte';
 
@@ -37,6 +37,7 @@
 	<div
 		class="lp-modal-content"
 		use:click_outside={{ active: closeOnClickBg && isOpen, callback: hide }}
+		use:handle_escape={{ callback: hide }}
 	>
 		<slot name="header" />
 		<Popup
