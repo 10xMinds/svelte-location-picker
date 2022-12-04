@@ -1,14 +1,19 @@
 ---
 # See https://docs.gitlab.com/ee/ci/yaml/README.html
 
-.with_node:
-    image: kucrut/pnpm
+variables:
+    CHANGESET_RELEASE_BRANCH: changeset-release/main
+    PNPM_HOME: .pnpm
+
+.with_pnpm:
+    image: kucrut/pnpm:18
+    interruptible: true
     cache:
-        key: ${CI_COMMIT_REF_SLUG}
+        key:
+            files:
+                - pnpm-lock.yaml
         paths:
-            - .pnpm-store
-    before_script:
-        - pnpm config set store-dir .pnpm-store
+            - $PNPM_HOME
 
 .base_release:
     extends: .with_node
@@ -16,9 +21,8 @@
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           changes:
               - 'CHANGELOG.md'
-
-variables:
-    CHANGESET_RELEASE_BRANCH: changeset-release/main
+          exists:
+              - 'CHANGELOG.md'
 
 stages:
     - lint
@@ -29,14 +33,15 @@ stages:
 
 enable_merge:
     image: alpine:latest
+    interruptible: true
     stage: lint
     rules:
         - if: $CI_MERGE_REQUEST_ID
     script: echo true
 
 lint:
-    extends: .with_node
-    script: pnpm install && pnpm lint && pnpm check
+    extends: .with_pnpm
+    script: pnpm install --silent && pnpm lint
     stage: lint
     rules:
         - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
@@ -50,10 +55,10 @@ lint:
               - 'pnpm-lock.yaml'
 
 build_merge_request:
-    extends: .with_node
+    extends: .with_pnpm
     stage: build
     script:
-        - pnpm install
+        - pnpm install --silent
         - pnpm build
     rules:
         - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
@@ -69,7 +74,7 @@ build_merge_request:
               - 'pnpm-lock.yaml'
 
 create_release_mr:
-    extends: .with_node
+    extends: .with_pnpm
     stage: pre-release
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
@@ -80,8 +85,8 @@ create_release_mr:
         - if: $CI_COMMIT_TAG
           when: never
     script: |
-        pnpm install
-        pnpm changesets-gitlab
+        pnpm install --silent
+        pnpx changesets-gitlab
     variables:
         INPUT_COMMIT: New version
         INPUT_TITLE: New version
@@ -98,9 +103,8 @@ release:
         cat << EOF > "$HOME/.npmrc"
             //registry.npmjs.org/:_authToken=$NPM_TOKEN
         EOF
-        pnpm install
+        pnpm install --silent
         pnpm build
-        pnpm package
         pnpm publish package --access public --no-git-checks
 
 pages:
