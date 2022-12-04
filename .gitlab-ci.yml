@@ -16,7 +16,7 @@ variables:
             - $PNPM_HOME
 
 .base_release:
-    extends: .with_node
+    extends: .with_pnpm
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           changes:
