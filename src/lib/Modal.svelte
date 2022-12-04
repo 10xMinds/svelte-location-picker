@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { LatLngTuple } from 'leaflet';
+	import { click_outside } from '@kucrut/svelte-stuff/actions';
 	import { createEventDispatcher } from 'svelte';
 	import Popup from './Popup.svelte';
 
@@ -11,7 +12,6 @@
 		cancel: { picked: LatLngTuple | null };
 		select: { picked: LatLngTuple };
 	}>();
-	let modalEl: HTMLDivElement;
 
 	function hide() {
 		isOpen = false;
@@ -19,12 +19,6 @@
 
 	function show() {
 		isOpen = true;
-	}
-
-	function handleClickBg(event: Event) {
-		if (closeOnClickBg && event.target === modalEl) {
-			hide();
-		}
 	}
 
 	function handleCancel(e: CustomEvent<{ picked: typeof picked }>) {
@@ -39,15 +33,11 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events TODO -->
-<div
-	class="lp-modal"
-	class:lp-modal--is-open={isOpen}
-	hidden={!isOpen}
-	bind:this={modalEl}
-	on:click|capture={handleClickBg}
->
-	<div class="lp-modal-content">
+<div class="lp-modal" class:lp-modal--is-open={isOpen} hidden={!isOpen}>
+	<div
+		class="lp-modal-content"
+		use:click_outside={{ active: closeOnClickBg && isOpen, callback: hide }}
+	>
 		<slot name="header" />
 		<Popup
 			{...$$restProps}
