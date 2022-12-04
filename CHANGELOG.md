@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.1.1
+
+### Patch Changes
+
+- a454774: CI: Fix release job
+
 ## 0.1.0
 
 ### Minor Changes
