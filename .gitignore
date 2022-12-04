@@ -4,6 +4,6 @@
 .env.*
 /.pnpm/*
 /.svelte-kit
-/build
 /package
+/public
 node_modules

@@ -15,21 +15,11 @@ variables:
         paths:
             - $PNPM_HOME
 
-.base_release:
-    extends: .with_pnpm
-    rules:
-        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-          changes:
-              - 'CHANGELOG.md'
-          exists:
-              - 'CHANGELOG.md'
-
 stages:
     - lint
     - build
-    - pre-release
-    - release
-    - deploy
+    - pre-publish
+    - publish
 
 enable_merge:
     image: alpine:latest
@@ -75,7 +65,7 @@ build_merge_request:
 
 create_release_mr:
     extends: .with_pnpm
-    stage: pre-release
+    stage: pre-publish
     rules:
         - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
           exists:
@@ -91,12 +81,18 @@ create_release_mr:
         INPUT_COMMIT: New version
         INPUT_TITLE: New version
 
-release:
-    stage: release
-    extends: .base_release
+publish_package_and_pages:
+    stage: publish
+    extends: .with_pnpm
     artifacts:
         paths:
-            - build
+            - public
+    rules:
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+          changes:
+              - 'CHANGELOG.md'
+          exists:
+              - 'CHANGELOG.md'
     variables:
         VITE_BASE: '/${CI_PROJECT_NAME}'
     script: |
@@ -107,14 +103,3 @@ release:
         pnpm build
         pnpm package
         pnpm publish package --access public --no-git-checks
-
-pages:
-    extends: .base_release
-    stage: deploy
-    script: mv build public
-    artifacts:
-        paths:
-            - public
-    needs:
-        - job: release
-          artifacts: true
