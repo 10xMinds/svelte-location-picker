@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { LatLngTuple } from 'leaflet';
+	import { click_outside, handle_escape, trap_focus } from '@kucrut/svelte-stuff/actions';
 	import { createEventDispatcher } from 'svelte';
 	import Popup from './Popup.svelte';
 
@@ -34,7 +35,15 @@
 	}
 </script>
 
-<dialog class="lp-dialog" bind:this={dialog} on:cancel on:close>
+<dialog
+	class="lp-dialog"
+	bind:this={dialog}
+	on:cancel
+	on:close
+	use:click_outside={{ active: isOpen, callback: hide }}
+	use:handle_escape={{ callback: hide }}
+	use:trap_focus
+>
 	<slot name="header" />
 	<Popup {...$$restProps} {picked} {isOpen} on:cancel={handleCancel} on:select={handleSelect} />
 	<slot name="footer" />
