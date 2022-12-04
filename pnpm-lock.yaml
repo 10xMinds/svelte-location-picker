@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@changesets/cli': ^2.25.2
+  '@kucrut/svelte-stuff': ^0.0.1
   '@playwright/test': ^1.28.1
   '@sveltejs/adapter-static': 1.0.0-next.48
   '@sveltejs/kit': 1.0.0-next.571
@@ -28,6 +29,7 @@ specifiers:
 
 devDependencies:
   '@changesets/cli': 2.25.2
+  '@kucrut/svelte-stuff': 0.0.1
   '@playwright/test': 1.28.1
   '@sveltejs/adapter-static': 1.0.0-next.48
   '@sveltejs/kit': 1.0.0-next.571_svelte@3.53.1+vite@3.2.4
@@ -389,6 +391,10 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+    dev: true
+
+  /@kucrut/svelte-stuff/0.0.1:
+    resolution: {integrity: sha512-DcD/jrNuPggZ3cQLf7UPomoec8j3pIR8Z/PmNapNqV22gaJ214czzOFrvq0NXpLw2SX0C6/IbGLxmcsJ+yi80Q==}
     dev: true
 
   /@manypkg/find-root/1.1.0:
