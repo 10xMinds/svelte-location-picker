@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.1.2
+
+### Patch Changes
+
+- 0a3a713: Improve release flow
+
 ## 0.1.1
 
 ### Patch Changes
