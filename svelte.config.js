@@ -9,11 +9,13 @@ const config = {
 
 	kit: {
 		adapter: adapter({
-			fallback: 'index.html'
+			fallback: 'index.html',
+			pages: 'public'
 		}),
 		paths: {
 			base: process.env.VITE_BASE || ''
-		}
+		},
+		prerender: { entries: [] }
 	}
 };
 
