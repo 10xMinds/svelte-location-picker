@@ -5,3 +5,65 @@
 h1 {
 	text-align: center;
 }
+
+body {
+	font-family: system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+		'Helvetica Neue', sans-serif;
+}
+
+pre,
+code {
+	font-family: Consolas, Monaco, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
+		'Lucida Sans Typewriter', 'Liberation Mono', 'Nimbus Mono L', 'Courier New', Courier,
+		monospace;
+}
+
+main {
+	max-width: 60rem;
+	margin-inline: auto;
+}
+
+div {
+	position: relative;
+	margin-block-end: 2rem;
+}
+
+input {
+	font-variant-numeric: oldstyle-nums;
+	letter-spacing: 0.025rem;
+}
+
+.wrapper {
+	display: flex;
+	margin-block: 1rem;
+}
+
+.wrapper input {
+	flex: 1;
+	margin-inline-start: 0.25rem;
+}
+
+.has-dialog :global(.lp-dialog-buttons) {
+	padding: 0.5rem;
+}
+
+pre {
+	background-color: #1c1c1c;
+	padding: 1rem;
+	line-height: 1.6;
+	overflow-x: auto;
+}
+
+pre code {
+	color: #aec4d9;
+}
+
+.colophon {
+	text-align: center;
+	margin-block: 2rem;
+}
+
+.colophon a {
+	text-decoration: unset;
+	padding-inline: 0.5rem;
+}
