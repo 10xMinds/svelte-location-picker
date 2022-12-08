@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.1.3
+
+### Patch Changes
+
+- a7eba6f: Improve demo page
+
 ## 0.1.2
 
 ### Patch Changes
