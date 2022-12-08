@@ -3,14 +3,12 @@
 	import { toLatLng } from '$lib/utils';
 	import Dialog from '$lib/Dialog.svelte';
 	import Picker from '$lib/Picker.svelte';
-	import Modal from '$lib/Modal.svelte';
+	import Modal from '$examples/modal.svelte';
 
 	let picked_1: LatLngTuple | null;
 	let picked_2: LatLngTuple | null;
-	let picked_3: LatLngTuple | null;
 	let result_1 = '';
 	let result_2 = '';
-	let result_3 = '';
 
 	$: {
 		try {
@@ -24,13 +22,6 @@
 			picked_2 = toLatLng(result_2);
 		} catch (e) {
 			picked_2 = null;
-		}
-	}
-	$: {
-		try {
-			picked_3 = toLatLng(result_3);
-		} catch (e) {
-			picked_3 = null;
 		}
 	}
 </script>
@@ -114,12 +105,7 @@
 &lt;/Modal&gt;
 </code></pre>
 
-	<div class="has-dialog has-modal wrapper">
-		<Modal picked={picked_3} on:select={(e) => (result_3 = e.detail.picked.join(','))}>
-			<input slot="result" bind:value={result_3} />
-			<button slot="trigger" let:show on:click|preventDefault={show}>Select Location</button>
-		</Modal>
-	</div>
+	<Modal />
 
 	<p class="colophon"><a href="https://dz.aziz.im">💚</a></p>
 </main>
