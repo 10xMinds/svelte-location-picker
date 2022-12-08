@@ -1,32 +1,10 @@
 <script lang="ts">
-	import type { LatLngTuple } from 'leaflet';
 	import type { PageData } from './$types';
-	import { toLatLng } from '$lib/utils';
 	import Dialog from '$examples/dialog.svelte';
 	import Modal from '$examples/modal.svelte';
-	import Picker from '$lib/Picker.svelte';
+	import Simple from '$examples/simple.svelte';
 
 	export let data: PageData;
-
-	let picked_1: LatLngTuple | null;
-	let picked_2: LatLngTuple | null;
-	let result_1 = '';
-	let result_2 = '';
-
-	$: {
-		try {
-			picked_1 = toLatLng(result_1);
-		} catch (e) {
-			picked_1 = null;
-		}
-	}
-	$: {
-		try {
-			picked_2 = toLatLng(result_2);
-		} catch (e) {
-			picked_2 = null;
-		}
-	}
 </script>
 
 <svelte:head>
@@ -45,29 +23,11 @@
 
 	<h2>Simple Location Picker</h2>
 
-	<pre><code
-			>&lt;script&gt;
-	import &#123;Picker&#125 from 'svelte-location-picker';
+	{#if data.examples.simple}
+		<pre><code>{data.examples.simple}</code></pre>
+	{/if}
 
-	let picked = null;
-	let value = '';
-&lt;/script&gt;
-
-&lt;Picker &#123;picked&#125; on:pick=&#123;(e) =&gt; (value = e.detail.picked.join(', '))&#125; /&gt;
-
-&lt;label class="wrapper"&gt;
-	Picked Location:
-	&lt;input type="text" bind:value /&gt;
-&lt;/label&gt;
-</code></pre>
-
-	<div class="simple">
-		<Picker picked={picked_1} on:pick={(e) => (result_1 = e.detail.picked.join(', '))} />
-		<label class="wrapper">
-			Picked Location:
-			<input type="text" bind:value={result_1} />
-		</label>
-	</div>
+	<Simple />
 
 	<h2>Location Picker with &lt;dialog&gt;</h2>
 
