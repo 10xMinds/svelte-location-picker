@@ -70,5 +70,8 @@
 		"@kucrut/svelte-stuff": "^0.0.1",
 		"leaflet": "^1.9.3",
 		"svelte": "^3.53.1"
+	},
+	"dependencies": {
+		"svelte-prism": "^1.1.6"
 	}
 }
