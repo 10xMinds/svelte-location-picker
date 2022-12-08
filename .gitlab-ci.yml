@@ -112,6 +112,7 @@ publish_package:
 pages:
   stage: deploy
   extends: .base_publish
+  script: echo true
   needs:
     - job: publish_package
       artifacts: true
