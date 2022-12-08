@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import Dialog from '$examples/dialog.svelte';
 	import Modal from '$examples/modal.svelte';
+	import Prism from 'svelte-prism';
 	import Simple from '$examples/simple.svelte';
 
 	export let data: PageData;
@@ -19,12 +20,12 @@
 		<a href="https://leafletjs.com">Leaflet</a>.
 	</p>
 
-	<pre><code>npm install --save-dev @kucrut/svelte-location-picker</code></pre>
+	<Prism language="none" source="npm install --save-dev @kucrut/svelte-location-picker" />
 
 	<h2>Simple Location Picker</h2>
 
 	{#if data.examples.simple}
-		<pre><code>{data.examples.simple}</code></pre>
+		<Prism language="svelte" source={data.examples.simple} />
 	{/if}
 
 	<Simple />
@@ -32,7 +33,7 @@
 	<h2>Location Picker with &lt;dialog&gt;</h2>
 
 	{#if data.examples.dialog}
-		<pre><code>{data.examples.dialog}</code></pre>
+		<Prism language="svelte" source={data.examples.dialog} />
 	{/if}
 
 	<Dialog />
@@ -40,7 +41,7 @@
 	<h2>Location Picker with modal</h2>
 
 	{#if data.examples.modal}
-		<pre><code>{data.examples.modal}</code></pre>
+		<Prism language="svelte" source={data.examples.modal} />
 	{/if}
 
 	<Modal />

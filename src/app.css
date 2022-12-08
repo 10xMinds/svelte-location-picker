@@ -11,19 +11,13 @@ body {
 		'Helvetica Neue', sans-serif;
 }
 
-pre,
-code {
-	font-family: Consolas, Monaco, 'Andale Mono WT', 'Andale Mono', 'Lucida Console',
-		'Lucida Sans Typewriter', 'Liberation Mono', 'Nimbus Mono L', 'Courier New', Courier,
-		monospace;
-}
-
 main {
 	max-width: 60rem;
 	margin-inline: auto;
 }
 
-div {
+.simple div,
+.wapper {
 	position: relative;
 	margin-block-end: 2rem;
 }
@@ -43,19 +37,8 @@ input {
 	margin-inline-start: 0.25rem;
 }
 
-.has-dialog :global(.lp-dialog-buttons) {
+.lp-popup-buttons {
 	padding: 0.5rem;
-}
-
-pre {
-	background-color: #1c1c1c;
-	padding: 1rem;
-	line-height: 1.6;
-	overflow-x: auto;
-}
-
-pre code {
-	color: #aec4d9;
 }
 
 .colophon {
@@ -66,4 +49,9 @@ pre code {
 .colophon a {
 	text-decoration: unset;
 	padding-inline: 0.5rem;
+}
+
+/* Prism overrides */
+div pre[class*='language-'] {
+	margin-block-end: 3rem;
 }
