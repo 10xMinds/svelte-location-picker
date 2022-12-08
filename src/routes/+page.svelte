@@ -1,9 +1,12 @@
 <script lang="ts">
 	import type { LatLngTuple } from 'leaflet';
+	import type { PageData } from './$types';
 	import { toLatLng } from '$lib/utils';
 	import Dialog from '$lib/Dialog.svelte';
 	import Picker from '$lib/Picker.svelte';
 	import Modal from '$examples/modal.svelte';
+
+	export let data: PageData;
 
 	let picked_1: LatLngTuple | null;
 	let picked_2: LatLngTuple | null;
@@ -91,19 +94,9 @@
 
 	<h2>Location Picker with modal</h2>
 
-	<pre><code
-			>&lt;script&gt;
-	import &#123;Modal&#125 from 'svelte-location-picker';
-
-	let picked = null;
-	let value = '';
-&lt;/script&gt;
-
-&lt;Modal &#123;picked&#125; on:select=&#123;(e) =&gt; (result = e.detail.picked.join(','))&#125;&gt;
-	&lt;input slot="result" bind:value /&gt;
-	&lt;button slot="trigger" let:show on:click|preventDefault=&#123;show&#125;&gt;Select Location&lt;/button&gt;
-&lt;/Modal&gt;
-</code></pre>
+	{#if data.examples.modal}
+		<pre><code>{data.examples.modal}</code></pre>
+	{/if}
 
 	<Modal />
 
