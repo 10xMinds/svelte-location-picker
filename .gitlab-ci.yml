@@ -5,6 +5,17 @@ variables:
   CHANGESET_RELEASE_BRANCH: changeset-release/main
   PNPM_HOME: .pnpm
 
+.base_publish:
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      changes:
+        - 'CHANGELOG.md'
+      exists:
+        - 'CHANGELOG.md'
+
 .with_pnpm:
   image: kucrut/pnpm:18
   interruptible: true
@@ -84,16 +95,9 @@ create_release_mr:
 
 publish_package:
   stage: publish
-  extends: .with_pnpm
-  artifacts:
-    paths:
-      - public
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-      changes:
-        - 'CHANGELOG.md'
-      exists:
-        - 'CHANGELOG.md'
+  extends:
+    - .with_pnpm
+    - .base_publish
   variables:
     VITE_BASE: '/${CI_PROJECT_NAME}'
   script: |
@@ -107,11 +111,7 @@ publish_package:
 
 pages:
   stage: deploy
-  artifacts:
-    paths:
-      - public
+  extends: .base_publish
   needs:
     - job: publish_package
       artifacts: true
-  rules:
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
