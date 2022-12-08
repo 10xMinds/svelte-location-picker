@@ -2,9 +2,9 @@
 	import type { LatLngTuple } from 'leaflet';
 	import type { PageData } from './$types';
 	import { toLatLng } from '$lib/utils';
-	import Dialog from '$lib/Dialog.svelte';
-	import Picker from '$lib/Picker.svelte';
+	import Dialog from '$examples/dialog.svelte';
 	import Modal from '$examples/modal.svelte';
+	import Picker from '$lib/Picker.svelte';
 
 	export let data: PageData;
 
@@ -71,26 +71,11 @@
 
 	<h2>Location Picker with &lt;dialog&gt;</h2>
 
-	<pre><code
-			>&lt;script&gt;
-	import &#123;Dialog&#125 from 'svelte-location-picker';
+	{#if data.examples.dialog}
+		<pre><code>{data.examples.dialog}</code></pre>
+	{/if}
 
-	let picked = null;
-	let value = '';
-&lt;/script&gt;
-
-&lt;Dialog &#123;picked&#125; on:select=&#123;(e) =&gt; (result_2 = e.detail.picked.join(','))&#125;&gt;
-	&lt;input slot="result" bind:value /&gt;
-	&lt;button slot="trigger" let:show on:click|preventDefault=&#123;show&#125;&gt;Select Location&lt;/button&gt;
-&lt;/Dialog&gt;
-</code></pre>
-
-	<div class="has-dialog wrapper">
-		<Dialog picked={picked_2} on:select={(e) => (result_2 = e.detail.picked.join(','))}>
-			<input slot="result" bind:value={result_2} />
-			<button slot="trigger" let:show on:click|preventDefault={show}>Select Location</button>
-		</Dialog>
-	</div>
+	<Dialog />
 
 	<h2>Location Picker with modal</h2>
 
