@@ -20,6 +20,7 @@ stages:
   - build
   - pre-publish
   - publish
+  - deploy
 
 enable_merge:
   image: alpine:latest
@@ -81,7 +82,7 @@ create_release_mr:
     INPUT_COMMIT: New version
     INPUT_TITLE: New version
 
-publish_package_and_pages:
+publish_package:
   stage: publish
   extends: .with_pnpm
   artifacts:
@@ -103,3 +104,14 @@ publish_package_and_pages:
     pnpm build
     pnpm package
     pnpm publish package --access public --no-git-checks
+
+pages:
+  stage: deploy
+  artifacts:
+    paths:
+      - public
+  needs:
+    - job: publish_package
+      artifacts: true
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
