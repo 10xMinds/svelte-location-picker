@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.1.4
+
+### Patch Changes
+
+- 66173fe: CI: Fix pages
+
 ## 0.1.3
 
 ### Patch Changes
