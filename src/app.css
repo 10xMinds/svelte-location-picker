@@ -5,3 +5,53 @@
 h1 {
 	text-align: center;
 }
+
+body {
+	font-family: system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell,
+		'Helvetica Neue', sans-serif;
+}
+
+main {
+	max-width: 60rem;
+	margin-inline: auto;
+}
+
+.simple div,
+.wapper {
+	position: relative;
+	margin-block-end: 2rem;
+}
+
+input {
+	font-variant-numeric: oldstyle-nums;
+	letter-spacing: 0.025rem;
+}
+
+.wrapper {
+	display: flex;
+	margin-block: 1rem;
+}
+
+.wrapper input {
+	flex: 1;
+	margin-inline-start: 0.25rem;
+}
+
+.lp-popup-buttons {
+	padding: 0.5rem;
+}
+
+.colophon {
+	text-align: center;
+	margin-block: 2rem;
+}
+
+.colophon a {
+	text-decoration: unset;
+	padding-inline: 0.5rem;
+}
+
+/* Prism overrides */
+div pre[class*='language-'] {
+	margin-block-end: 3rem;
+}

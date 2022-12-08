@@ -12,6 +12,10 @@ const config = {
 			fallback: 'index.html',
 			pages: 'public'
 		}),
+		alias: {
+			$examples: './src/examples',
+			'$examples/*': './src/examples/*'
+		},
 		paths: {
 			base: process.env.VITE_BASE || ''
 		},
