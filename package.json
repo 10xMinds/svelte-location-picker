@@ -4,7 +4,7 @@
 	"version": "0.1.4",
 	"homepage": "https://kucrut.gitlab.io/svelte-location-picker",
 	"license": "MIT",
-	"packageManager": "pnpm@7.5.2",
+	"packageManager": "pnpm@8.8.0",
 	"type": "module",
 	"bugs": {
 		"url": "https://gitlab.com/kucrut/svelte-location-picker/-/issues"
@@ -16,7 +16,7 @@
 		}
 	],
 	"engines": {
-		"pnpm": "^7.0.0"
+		"pnpm": "^8.8.0"
 	},
 	"keywords": [
 		"form",
@@ -41,37 +41,35 @@
 		"format": "prettier --write --plugin-search-dir=. ."
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.25.2",
-		"@kucrut/svelte-stuff": "^0.0.2",
-		"@playwright/test": "^1.28.1",
-		"@sveltejs/adapter-static": "1.0.0-next.48",
-		"@sveltejs/kit": "1.0.0-next.573",
-		"@sveltejs/package": "1.0.0-next.6",
-		"@types/geojson": "^7946.0.10",
-		"@types/leaflet": "^1.9.0",
-		"@typescript-eslint/eslint-plugin": "^5.46.0",
-		"@typescript-eslint/parser": "^5.46.0",
-		"eslint": "^8.29.0",
-		"eslint-config-prettier": "^8.3.0",
-		"eslint-plugin-prettier": "^4.2.1",
-		"eslint-plugin-svelte3": "^4.0.0",
-		"leaflet": "^1.9.3",
-		"prettier": "^2.8.1",
-		"prettier-plugin-svelte": "^2.8.1",
-		"svelte": "^3.54.0",
-		"svelte-check": "^2.10.2",
-		"svelte-preprocess": "^4.10.7",
-		"svelte2tsx": "^0.5.22",
-		"tslib": "^2.4.1",
-		"typescript": "~4.9.4",
-		"vite": "^3.2.5"
+		"@changesets/cli": "^2.26.2",
+		"@kucrut/svelte-stuff": "^0.0.4",
+		"@playwright/test": "^1.38.1",
+		"@sveltejs/adapter-static": "2.0.3",
+		"@sveltejs/kit": "1.25.1",
+		"@sveltejs/package": "2.2.2",
+		"@types/geojson": "^7946.0.11",
+		"@types/leaflet": "^1.9.6",
+		"@typescript-eslint/eslint-plugin": "^6.7.3",
+		"@typescript-eslint/parser": "^6.7.3",
+		"eslint": "^8.50.0",
+		"eslint-config-prettier": "^9.0.0",
+		"eslint-plugin-prettier": "^5.0.0",
+		"eslint-plugin-svelte": "^2.33.2",
+		"leaflet": "^1.9.4",
+		"prettier": "^3.0.3",
+		"prettier-plugin-svelte": "^3.0.3",
+		"svelte": "^4.2.1",
+		"svelte-check": "^3.5.2",
+		"svelte-preprocess": "^5.0.4",
+		"svelte-prism": "^1.1.6",
+		"svelte2tsx": "^0.6.22",
+		"tslib": "^2.6.2",
+		"typescript": "~5.2.2",
+		"vite": "^4.4.9"
 	},
 	"peerDependencies": {
 		"@kucrut/svelte-stuff": "^0.0.1",
 		"leaflet": "^1.9.3",
 		"svelte": "^3.53.1"
-	},
-	"dependencies": {
-		"svelte-prism": "^1.1.6"
 	}
 }
