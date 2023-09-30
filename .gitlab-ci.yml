@@ -43,7 +43,7 @@ enable_merge:
 
 lint:
   extends: .with_pnpm
-  script: pnpm install && pnpm lint
+  script: pnpm install --silent && pnpm lint
   stage: lint
   rules:
     - if: $CI_MERGE_REQUEST_ID && $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME != $CHANGESET_RELEASE_BRANCH
