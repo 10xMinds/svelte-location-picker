@@ -42,7 +42,7 @@
 	},
 	"devDependencies": {
 		"@changesets/cli": "^2.26.2",
-		"@kucrut/svelte-stuff": "^0.0.4",
+		"@kucrut/svelte-stuff": "^0.0.5",
 		"@playwright/test": "^1.38.1",
 		"@sveltejs/adapter-static": "2.0.3",
 		"@sveltejs/kit": "1.25.1",
@@ -68,7 +68,7 @@
 		"vite": "^4.4.9"
 	},
 	"peerDependencies": {
-		"@kucrut/svelte-stuff": "^0.0.4",
+		"@kucrut/svelte-stuff": "^0.0.5",
 		"leaflet": "^1.9.4",
 		"svelte": "^4.2.1"
 	}
