@@ -9,5 +9,5 @@
 			"options": { "parser": "svelte" }
 		}
 	],
-	"plugins": ["./node_modules/prettier-plugin-svelte", "./node_modules/eslint-plugin-prettier"]
+	"plugins": ["prettier-plugin-svelte", "eslint-plugin-prettier"]
 }
