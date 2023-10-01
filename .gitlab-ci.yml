@@ -107,7 +107,7 @@ publish_package:
     pnpm install --silent
     pnpm build
     pnpm package
-    pnpm publish package --access public --no-git-checks
+    pnpm publish --access public --no-git-checks
 
 pages:
   stage: deploy
