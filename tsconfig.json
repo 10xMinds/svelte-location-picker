@@ -9,6 +9,6 @@
 		"skipLibCheck": true,
 		"sourceMap": true,
 		"strict": true,
-		"lib": ["dom", "DOM.Iterable", "es2021"]
+		"lib": ["dom", "DOM.Iterable", "ES2022"]
 	}
 }
