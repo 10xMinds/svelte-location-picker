@@ -1,7 +1,7 @@
 {
 	"name": "@kucrut/svelte-location-picker",
 	"description": "Simple location picker for Svelte projects.",
-	"version": "0.1.4",
+	"version": "0.1.5",
 	"homepage": "https://kucrut.gitlab.io/svelte-location-picker",
 	"license": "MIT",
 	"packageManager": "pnpm@8.8.0",
