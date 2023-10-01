@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.2.0
+
+### Minor Changes
+
+- ed2fb24: Fix packaging
+
 ## 0.1.5
 
 ### Patch Changes
