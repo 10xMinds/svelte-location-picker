@@ -1,5 +1,11 @@
 # @kucrut/svelte-location-picker
 
+## 0.2.1
+
+### Patch Changes
+
+- 2bffd6c: CI: Fix publish_package script
+
 ## 0.2.0
 
 ### Minor Changes
