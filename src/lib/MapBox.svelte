@@ -2,7 +2,6 @@
 	import type { LatLngTuple, Map as MapType, TileLayerOptions } from 'leaflet';
 	import type { MapEvent } from './types';
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import { browser } from '$app/environment';
 
 	let cls = '';
 	export { cls as class };
@@ -20,10 +19,6 @@
 	const dispatch = createEventDispatcher<{ ready: MapEvent }>();
 
 	onMount(async () => {
-		if (!browser) {
-			return;
-		}
-
 		const leaflet = await import('leaflet');
 		mapInstance = leaflet.map(mapEl).setView(center, zoom);
 
