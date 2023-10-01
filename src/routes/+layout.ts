@@ -1,5 +1,7 @@
 import type { LayoutLoad } from './$types';
 
+export const ssr = false;
+
 export const load: LayoutLoad = async () => {
 	const components = import.meta.glob('../examples/*.svelte', { as: 'raw' });
 	const modules = Object.entries(components).map(([path, func]) =>
