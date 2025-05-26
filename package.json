@@ -6,6 +6,12 @@
 	"license": "MIT",
 	"packageManager": "pnpm@9.12.1",
 	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist"
+	],
 	"bugs": {
 		"url": "https://github.com/10xminds/svelte-location-picker/-/issues"
 	},
