@@ -1,11 +1,17 @@
 {
 	"name": "@10xminds/svelte-location-picker",
 	"description": "Simple location picker for Svelte projects.",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"homepage": "https://github.com/10xminds/svelte-location-picker",
 	"license": "MIT",
 	"packageManager": "pnpm@9.12.1",
 	"type": "module",
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist"
+	],
 	"bugs": {
 		"url": "https://github.com/10xminds/svelte-location-picker/-/issues"
 	},
