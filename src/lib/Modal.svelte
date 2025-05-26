@@ -1,17 +1,41 @@
 <script lang="ts">
-	import type { LatLngTuple } from 'leaflet';
 	import { click_outside, handle_escape, trap_focus } from '@kucrut/svelte-stuff/actions';
-	import { createEventDispatcher } from 'svelte';
+	import type { LatLngTuple } from 'leaflet';
 	import Popup from './Popup.svelte';
 
-	export let picked: LatLngTuple | null = null;
-	export let closeOnClickBg = true;
-	export let isOpen = false;
+	interface Props {
+		picked?: LatLngTuple | null;
+		closeOnClickBg?: boolean;
+		isOpen?: boolean;
+		header?: import('svelte').Snippet;
+		footer?: import('svelte').Snippet;
+		trigger?: import('svelte').Snippet<
+			[
+				| { hide: () => void; show: () => void }
+				| { hide: () => void; show: () => void }
+				| (() => void)
+			]
+		>;
+		result?: import('svelte').Snippet<
+			[{ selected: LatLngTuple | null } | { selected: LatLngTuple | null } | (() => void)]
+		>;
+		oncancel?: (event: CustomEvent<{ picked: LatLngTuple | null }>) => void;
+		onselect?: (event: CustomEvent<{ picked: LatLngTuple }>) => void;
+		[key: string]: unknown;
+	}
 
-	const dispatch = createEventDispatcher<{
-		cancel: { picked: LatLngTuple | null };
-		select: { picked: LatLngTuple };
-	}>();
+	let {
+		picked = $bindable(null),
+		closeOnClickBg = true,
+		isOpen = $bindable(false),
+		header,
+		footer,
+		trigger,
+		result,
+		oncancel,
+		onselect,
+		...rest
+	}: Props = $props();
 
 	function hide() {
 		isOpen = false;
@@ -22,13 +46,15 @@
 	}
 
 	function handleCancel(e: CustomEvent<{ picked: typeof picked }>) {
-		dispatch('cancel', e.detail);
+		// Modern event handling
+		oncancel?.(e);
 		hide();
 	}
 
 	function handleSelect(e: CustomEvent<{ picked: LatLngTuple }>) {
 		({ picked } = e.detail);
-		dispatch('select', e.detail);
+		// Modern event handling
+		onselect?.(e);
 		hide();
 	}
 </script>
@@ -41,20 +67,14 @@
 		use:handle_escape={{ callback: hide }}
 		use:trap_focus
 	>
-		<slot name="header" />
-		<Popup
-			{...$$restProps}
-			{isOpen}
-			{picked}
-			on:cancel={handleCancel}
-			on:select={handleSelect}
-		/>
-		<slot name="footer" />
+		{@render header?.()}
+		<Popup {...rest} {isOpen} {picked} oncancel={handleCancel} onselect={handleSelect} />
+		{@render footer?.()}
 	</div>
 </div>
 
-<slot name="trigger" {hide} {show} />
-<slot name="result" selected={picked} />
+{@render trigger?.({ hide, show })}
+{@render result?.({ selected: picked })}
 
 <style>
 	.lp-modal {

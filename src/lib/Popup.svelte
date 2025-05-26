@@ -1,29 +1,57 @@
 <script lang="ts">
 	import type * as Leaflet from 'leaflet';
-	import type { MapEvent, PickLocationEvent } from './types';
-	import { createEventDispatcher } from 'svelte';
 	import Picker from './Picker.svelte';
+	import type { MapEvent, PickLocationEvent } from './types';
 
-	export let isOpen = true;
-	export let cancelText = 'Cancel';
-	export let selectText = 'Select';
-	export let picked: Leaflet.LatLngTuple | null = null;
+	interface Props {
+		isOpen?: boolean;
+		cancelText?: string;
+		selectText?: string;
+		picked?: Leaflet.LatLngTuple | null;
+		buttons?: import('svelte').Snippet<
+			[
+				{
+					handleCancel: () => void;
+					handleSelect: () => void;
+					picked: Leaflet.LatLngTuple | null;
+				}
+			]
+		>;
+		oncancel?: (event: CustomEvent<{ picked: Leaflet.LatLngTuple | null }>) => void;
+		onselect?: (event: CustomEvent<{ picked: Leaflet.LatLngTuple }>) => void;
+		[key: string]: unknown;
+	}
 
-	const dispatch = createEventDispatcher<{
-		cancel: { picked: Leaflet.LatLngTuple | null };
-		select: { picked: Leaflet.LatLngTuple };
-	}>();
-	let map: Leaflet.Map;
+	let {
+		isOpen = true,
+		cancelText = 'Cancel',
+		selectText = 'Select',
+		picked = $bindable(null),
+		buttons,
+		oncancel,
+		onselect,
+		...rest
+	}: Props = $props();
 
-	$: selectedString = picked ? picked.join(',') : '';
-	$: {
+	let map = $state<Leaflet.Map | undefined>(undefined);
+
+	let selectedString = $derived(picked ? picked.join(',') : '');
+
+	// In Svelte 5, $effect doesn't support options object as second parameter
+	// We can use optional chaining to make the effect depend on isOpen
+	$effect(() => {
+		// This will only run when isOpen or map changes
 		if (isOpen && map) {
 			map.invalidateSize();
 		}
-	}
+	});
 
 	function handleCancel() {
-		dispatch('cancel', { picked });
+		// Use modern event dispatch approach
+		const event = new CustomEvent('cancel', {
+			detail: { picked }
+		});
+		oncancel?.(event);
 	}
 
 	function handleMapReady(event: CustomEvent<MapEvent>) {
@@ -36,26 +64,40 @@
 
 	function handleSelect() {
 		if (picked) {
-			dispatch('select', { picked });
+			// Use modern event dispatch approach
+			const event = new CustomEvent('select', {
+				detail: { picked }
+			});
+			onselect?.(event);
 		}
 	}
 </script>
 
-<Picker {picked} {...$$restProps} on:pick={handlePick} on:ready={handleMapReady} />
+<Picker {picked} {...rest} onpick={handlePick} onready={handleMapReady} />
 
-<slot name="buttons" {handleCancel} {handleSelect} {picked}>
+{#if buttons}{@render buttons({ handleCancel, handleSelect, picked })}{:else}
 	<div class="lp-popup-buttons">
 		<button
 			class="lp-popup-button-select"
 			disabled={picked === null}
 			type="button"
 			value={selectedString}
-			on:click|preventDefault={handleSelect}
+			onclick={(e) => {
+				e.preventDefault();
+				handleSelect();
+			}}
 		>
 			{selectText}
 		</button>
-		<button class="lp-popup-button-cancel" type="button" on:click|preventDefault={handleCancel}>
+		<button
+			class="lp-popup-button-cancel"
+			type="button"
+			onclick={(e) => {
+				e.preventDefault();
+				handleCancel();
+			}}
+		>
 			{cancelText}
 		</button>
 	</div>
-</slot>
+{/if}

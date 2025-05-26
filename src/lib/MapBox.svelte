@@ -1,30 +1,44 @@
 <script lang="ts">
 	import type { LatLngTuple, Map as MapType, TileLayerOptions } from 'leaflet';
+	import { onDestroy, onMount } from 'svelte';
 	import type { MapEvent } from './types';
-	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
 
-	let cls = '';
-	export { cls as class };
+	interface Props {
+		class?: string;
+		center?: LatLngTuple;
+		zoom?: number;
+		tileLayerUrl?: string;
+		tileLayerOptions?: TileLayerOptions;
+		onready?: (event: CustomEvent<MapEvent>) => void;
+	}
 
-	export let center: LatLngTuple = [-8.426466422648268, 116.40201458313763];
-	export let zoom = 13;
-	export let tileLayerUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	export let tileLayerOptions: TileLayerOptions = {
-		attribution:
-			'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-	};
+	let {
+		class: cls = '',
+		center = [-8.426466422648268, 116.40201458313763],
+		zoom = 13,
+		tileLayerUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+		tileLayerOptions = {
+			attribution:
+				'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		},
+		onready
+	}: Props = $props();
 
-	let mapEl: HTMLDivElement;
-	let mapInstance: MapType;
-	const dispatch = createEventDispatcher<{ ready: MapEvent }>();
+	let mapEl = $state<HTMLDivElement | undefined>(undefined);
+	let mapInstance: MapType | undefined = $state();
 
 	onMount(async () => {
 		const leaflet = await import('leaflet');
+		if (!mapEl) return;
 		mapInstance = leaflet.map(mapEl).setView(center, zoom);
 
 		leaflet.tileLayer(tileLayerUrl, tileLayerOptions).addTo(mapInstance);
 
-		dispatch('ready', { leaflet, map: mapInstance });
+		// Use modern event handling
+		const event = new CustomEvent('ready', {
+			detail: { leaflet, map: mapInstance }
+		});
+		onready?.(event);
 	});
 
 	onDestroy(() => {
@@ -35,7 +49,7 @@
 	});
 </script>
 
-<div class={`lp-map ${cls}`} bind:this={mapEl} />
+<div class={`lp-map ${cls}`} bind:this={mapEl}></div>
 
 <style>
 	.lp-map {
