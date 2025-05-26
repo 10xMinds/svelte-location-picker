@@ -63,7 +63,7 @@
 	oncancel={() => hide()}
 	onclose={() => hide()}
 	use:click_outside={{ active: isOpen, callback: hide }}
-	use:handle_escape={{ callback: hide }}
+	use:handle_escape={{ active: isOpen, callback: hide }}
 	use:trap_focus
 >
 	{@render header?.()}

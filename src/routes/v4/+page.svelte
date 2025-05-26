@@ -1,15 +1,11 @@
 <script lang="ts">
-	import Dialog from '$examples/dialog.svelte';
-	import Modal from '$examples/modal.svelte';
-	import Simple from '$examples/simple.svelte';
+	import Dialog from '$examples/v4/dialog.svelte';
+	import Modal from '$examples/v4/modal.svelte';
+	import Simple from '$examples/v4/simple.svelte';
 	import Prism from 'svelte-prism';
-	import type { PageData } from './$types';
+	import type { PageData } from '../$types';
 
-	interface Props {
-		data: PageData;
-	}
-
-	let { data }: Props = $props();
+	export let data: PageData;
 </script>
 
 <svelte:head>
