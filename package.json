@@ -1,18 +1,22 @@
 {
-	"name": "@kucrut/svelte-location-picker",
+	"name": "@10xminds/svelte-location-picker",
 	"description": "Simple location picker for Svelte projects.",
 	"version": "0.2.1",
-	"homepage": "https://kucrut.gitlab.io/svelte-location-picker",
+	"homepage": "https://github.com/10xminds/svelte-location-picker",
 	"license": "MIT",
 	"packageManager": "pnpm@9.12.1",
 	"type": "module",
 	"bugs": {
-		"url": "https://gitlab.com/kucrut/svelte-location-picker/-/issues"
+		"url": "https://github.com/10xminds/svelte-location-picker/-/issues"
 	},
 	"contributors": [
 		{
 			"name": "Dzikri Aziz",
 			"url": "https://dz.aziz.im"
+		},
+		{
+			"name": "Vish",
+			"email": "vishnu@10xminds.dev"
 		}
 	],
 	"engines": {
@@ -27,7 +31,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://gitlab.com/kucrut/svelte-location-picker"
+		"url": "https://github.com/10xminds/svelte-location-picker"
 	},
 	"scripts": {
 		"dev": "vite dev",
